@@ -2,7 +2,11 @@
 from slackbot.bot import Bot
 from slackbot.bot import respond_to
 from slackbot.bot import listen_to
+from slackbot.bot import default_reply
 import re
+
+
+DEFAULT_REPLY = "Hello, I'm tech team bot!!"
 
 
 def main():
@@ -10,15 +14,20 @@ def main():
     bot.run()
 
 
-@respondo_to('中和')
+@respond_to('中和')
 def what(message):
-    message.reply('花火が見えない？お前がいるから大丈夫。')
+    message.send('花火が見えない？お前がいるから大丈夫。')
     message.react('+1')
 
 
-@respond_to('(.*) ちょうだい')
+@respond_to('(.*)ちょうだい')
 def giveme(message, something):
     message.reply('はい、 {}だよ。'.format(something))
+
+
+@default_reply
+def my_default_handler(message):
+    message.reply(DEFAULT_REPLY)
 
 
 if __name__ == "__main__":
