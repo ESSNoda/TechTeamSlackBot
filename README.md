@@ -1,3 +1,3 @@
 # TechTeamSlackBot
 run.pyをいじってTech Teamだけのbotを作ろう！
-むやみにコミットすると大変なことになるのでPull Request出してね
+むやみにコミットすると大変なことになるのでブランチ切ってPull Request出してね
