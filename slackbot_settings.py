@@ -1,2 +1,2 @@
-DEFAULT_REPLY = "Hello, I'm tech team bot!!!"
+DEFAULT_REPLY = "Hello, I'm tech team bot!!"
 API_TOKEN = "xoxb-458336289445-494546855540-rGVNzF7foLlluc4A4BeJFeMn"
