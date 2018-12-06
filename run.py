@@ -11,7 +11,7 @@ import requests
 DEFAULT_REPLY = "Hello, I'm Tech team bot!!"
 SWEET_SENTENCES = ["花火が見えない？お前がいるから大丈夫。", "恋はワインと同じ、時が経てばコクが出てくる",
                    "お前の涙は俺だけの特権", "会うのに理由っている？", "帰りたいなんて言わせないよ"]
-WEATHER = "http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={key}"
+WEATHER = "http://api.openweathermap.org/data/2.5/weather?id={cityId}"
 APIKEY = "{あなたのAPIKEYを入れてください}"
 
 
@@ -50,7 +50,7 @@ def my_default_handler(message):
 
 async def getWeather():
     def k2c(k): return k - 273.15
-    url = WEATHER.format(city="Tokyo,JP", key=APIKEY)
+    url = WEATHER.format(cityId=1855078)
     result = await requests.get(url)
     data = json.loads(result.text)
     return data
