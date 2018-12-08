@@ -42,8 +42,10 @@ def weather(message):
     message.react('yattaze')
     weather = getWeather()
     message.send("野田の天気は…")
-    message.send(weather["weather"][0]["main"])
-    message.send(":yarakashi:")
+    message.send("天気:"+weather["weather"][0]["main"]+":cloud:")
+    message.send("最高気温:" + weather["main"]["temp_max"]+"℃:thermometer:")
+    message.send("最低気温:" + weather["main"]["temp_min"]+"℃:thermometer:")
+    message.send("現在の気温:"+weather["main"]["temp"]+"℃:thermometer:")
 
 
 @default_reply
