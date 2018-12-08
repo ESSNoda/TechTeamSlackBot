@@ -44,7 +44,7 @@ def weather(message):
     message.send("野田の天気は…")
     message.send("天気:"+weather["weather"][0]["main"]+":cloud:")
     message.send("最高気温:" + str(weather["main"]["temp_max"])+"℃:thermometer:")
-    message.send("最低気温:" + str(eather["main"]["temp_min"])+"℃:thermometer:")
+    message.send("最低気温:" + str(weather["main"]["temp_min"])+"℃:thermometer:")
     message.send("現在の気温:"+str(weather["main"]["temp"])+"℃:thermometer:")
 
 
