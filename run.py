@@ -16,7 +16,7 @@ SWEET_SENTENCES = ["花火が見えない？お前がいるから大丈夫。", 
 WEATHER = "http://api.openweathermap.org/data/2.5/weather?APPID=b71d7e713739dcd82a4fae311621eccc&id=1855078"
 
 
-async def getWeather(session):
+async def getWeather():
     async with aiohttp.ClientSession() as session:
         with async_timeout.timeout(10):
             async with session.get(WEATHER) as response:
@@ -46,6 +46,7 @@ def giveme(message, something):
 
 @respond_to('天気')
 async def weather(message):
+    message.react('yattaze')
     loop = asyncio.get_event_loop()
     loop.run_until_complete(getWeather())
 
