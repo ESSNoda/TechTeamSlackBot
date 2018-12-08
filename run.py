@@ -6,25 +6,18 @@ from slackbot.bot import default_reply
 import random
 import re
 import json
-import aiohttp
-import asyncio
-import async_timeout
+import requests
 
 DEFAULT_REPLY = "Hello, I'm Tech team bot!!"
 SWEET_SENTENCES = ["花火が見えない？お前がいるから大丈夫。", "恋はワインと同じ、時が経てばコクが出てくる",
                    "お前の涙は俺だけの特権", "会うのに理由っている？", "帰りたいなんて言わせないよ"]
-WEATHER = "http://api.openweathermap.org/data/2.5/weather?APPID=b71d7e713739dcd82a4fae311621eccc&id=1855078"
+WEATHER = "http://api.openweathermap.org/data/2.5/weather?units=metric&APPID=b71d7e713739dcd82a4fae311621eccc&id=1855078"
 
 
-async def getWeather():
-    async with aiohttp.ClientSession() as session:
-        with async_timeout.timeout(10):
-            async with session.get(WEATHER) as response:
-                html = await response.text()
-                data = json.loads(html)
-                message.send("野田の天気は…")
-                message.send(data["weather"][0]["main"])
-                message.send(":yarakashi:")
+def getWeather():
+    result = requests.get(WEATHER)
+    data = json.loads(result.text)
+    return data
 
 
 def main():
@@ -47,8 +40,10 @@ def giveme(message, something):
 @respond_to('天気')
 def weather(message):
     message.react('yattaze')
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(getWeather())
+    weather = getWeather()
+    message.send("野田の天気は…")
+    message.send(weather["weather"][0]["main"])
+    message.send(":yarakashi:")
 
 
 @default_reply
