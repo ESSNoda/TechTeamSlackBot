@@ -45,7 +45,7 @@ def giveme(message, something):
 
 
 @respond_to('天気')
-async def weather(message):
+def weather(message):
     message.react('yattaze')
     loop = asyncio.get_event_loop()
     loop.run_until_complete(getWeather())
