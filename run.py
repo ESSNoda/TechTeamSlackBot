@@ -39,13 +39,13 @@ def giveme(message, something):
 
 @respond_to('天気')
 def weather(message):
-    message.react('yattaze')
+    message.react('いいね')
     weather = getWeather()
     message.send("野田の天気は…")
-    message.send("天気:"+weather["weather"][0]["main"]+":cloud:")
-    message.send("最高気温:" + str(weather["main"]["temp_max"])+"℃:thermometer:")
-    message.send("最低気温:" + str(weather["main"]["temp_min"])+"℃:thermometer:")
-    message.send("現在の気温:"+str(weather["main"]["temp"])+"℃:thermometer:")
+    message.send("天気:"+weather["weather"][0]["main"])
+    message.send("最高気温:" + str(weather["main"]["temp_max"])+"℃ :thermometer:")
+    message.send("最低気温:" + str(weather["main"]["temp_min"])+"℃ :thermometer:")
+    message.send("現在の気温:" + str(weather["main"]["temp"]) + "℃ :thermometer:")
 
 
 @default_reply
