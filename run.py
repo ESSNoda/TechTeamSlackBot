@@ -46,7 +46,7 @@ def giveme(message, something):
     message.reply('はい、 {}だよ。'.format(something))
 
 
-@respond_to('今の天気')
+@respond_to('天気')
 def weather(message):
     message.react('+1')
     weather = getWeather()
