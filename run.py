@@ -14,10 +14,17 @@ DEFAULT_REPLY = "Hello, I'm Tech team bot!!"
 SWEET_SENTENCES = ["花火が見えない？お前がいるから大丈夫。", "恋はワインと同じ、時が経てばコクが出てくる",
                    "お前の涙は俺だけの特権", "会うのに理由っている？", "帰りたいなんて言わせないよ", "お前の料理のせいで何食っても満足しねえよ", ]
 WEATHER = "http://api.openweathermap.org/data/2.5/weather?units=metric&lang=ja&APPID=b71d7e713739dcd82a4fae311621eccc&id=1855078"
+WEATHERF = "http://api.openweathermap.org/data/2.5/forecast?units=metric&lang=ja&APPID=b71d7e713739dcd82a4fae311621eccc&id=1855078"
 
 
 def getWeather():
     result = requests.get(WEATHER)
+    data = json.loads(result.text)
+    return data
+
+
+def getWeatherF():
+    result = requests.get(WEATHERF)
     data = json.loads(result.text)
     return data
 
@@ -55,7 +62,7 @@ def weather(message):
 def rainweather(message):
     isRain = False
     message.react('+1')
-    weather = getWeather()
+    weather = getWeatherF()
     message.send("今日は…")
     for item in weather['list']:
         forecastDatetime = timezone(
