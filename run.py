@@ -7,7 +7,7 @@ import random
 import re
 import json
 import requests
-import timezone
+from pytz import timezone
 import datetime
 
 DEFAULT_REPLY = "Hello, I'm Tech team bot!!"
