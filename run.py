@@ -7,6 +7,8 @@ import random
 import re
 import json
 import requests
+import timezone
+import datetime
 
 DEFAULT_REPLY = "Hello, I'm Tech team bot!!"
 SWEET_SENTENCES = ["花火が見えない？お前がいるから大丈夫。", "恋はワインと同じ、時が経てばコクが出てくる",
@@ -49,21 +51,28 @@ def weather(message):
     message.send("現在の気温:" + str(weather["main"]["temp"]) + "℃ :thermometer:")
 
 
-@respond_to('天気予報')
-def weather(message):
+@respond_to('雨')
+def rainweather(message):
+    isRain = False
     message.react('+1')
     weather = getWeather()
     message.send("今日は…")
     for item in weather['list']:
-    forecastDatetime = timezone(
-        'Asia/Tokyo').localize(datetime.datetime.fromtimestamp(item['dt']))
-    weatherDescription = item['weather'][0]['description']
-    temperature = item['main']['temp']
-    rainfall = 0
-    if 'rain' in item and '3h' in item['rain']:
-        rainfall = item['rain']['3h']
-    message.send('日時:{0} 天気:{1} 気温(℃):{2} 雨量(mm):{3}'.format(
-        forecastDatetime, weatherDescription, temperature, rainfall))
+        forecastDatetime = timezone(
+            'Asia/Tokyo').localize(datetime.datetime.fromtimestamp(item['dt']))
+        weatherDescription = item['weather'][0]['description']
+        temperature = item['main']['temp']
+        rainfall = 0
+        if 'rain' in item and '3h' in item['rain']:
+            rainfall = item['rain']['3h']
+            isRain = True
+            if rainfall != 0:
+                message.send('日時:{0} 天気:{1} 気温(℃):{2} 雨量(mm):{3}'.format(
+                    forecastDatetime, weatherDescription, temperature, rainfall))
+    if isRain:
+        message.send("雨が降るみたい！")
+    else:
+        message.send("ふらないよ！:+1:")
 
 
 @default_reply
