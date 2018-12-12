@@ -74,7 +74,7 @@ def rainweather(message):
         message.send("{}== {}".format(forecastDatetime.day, today))
         if 'rain' in item and '3h' in item['rain']:
             rainfall = item['rain']['3h']
-            if rainfall != 0 and forecastDatetime.day == today:
+            if rainfall != 0 and forecastDatetime.day == 13:
                 isRain = True
                 message.send('{0}時頃に{1}で、{2}mmぐらい降るみたい。 '.format(
                     forecastDatetime.hour, weatherDescription, rainfall))
