@@ -71,7 +71,6 @@ def rainweather(message):
         weatherDescription = item['weather'][0]['description']
         temperature = item['main']['temp']
         rainfall = 0
-        message.send("{}== {}".format(forecastDatetime.day, today))
         if 'rain' in item and '3h' in item['rain']:
             rainfall = item['rain']['3h']
             if rainfall != 0 and forecastDatetime.day == 13:
