@@ -73,9 +73,8 @@ def rainweather(message):
         rainfall = 0
         if 'rain' in item and '3h' in item['rain']:
             rainfall = item['rain']['3h']
-            isRain = True
             if rainfall != 0 and forecastDatetime.day == today:
-                message.react(':closed_umbrella:')
+                isRain = True
                 message.send('{0}時頃に{1}で、{2}mmぐらい降るみたい。 '.format(
                     forecastDatetime.hour, weatherDescription, rainfall))
                 message.send("気温は{}℃".format(temperature))
