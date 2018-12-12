@@ -15,6 +15,7 @@ SWEET_SENTENCES = ["花火が見えない？お前がいるから大丈夫。", 
                    "お前の涙は俺だけの特権", "会うのに理由っている？", "帰りたいなんて言わせないよ", "お前の料理のせいで何食っても満足しねえよ", ]
 WEATHER = "http://api.openweathermap.org/data/2.5/weather?units=metric&lang=ja&APPID=b71d7e713739dcd82a4fae311621eccc&id=1855078"
 WEATHERF = "http://api.openweathermap.org/data/2.5/forecast?units=metric&lang=ja&APPID=b71d7e713739dcd82a4fae311621eccc&id=1855078"
+JST = timezone(timedelta(hours=+9), 'JST')
 
 
 def getWeather():
@@ -62,11 +63,10 @@ def weather(message):
 def rainweather(message):
     message.react('+1')
     isRain = False
-    today = datetime.date.today()
+    today = datetime.date.today().day
     weather = getWeatherF()
     message.send("今日は…")
     for item in weather['list']:
-        JST = timezone(timedelta(hours=+9), 'JST')
         forecastDatetime = datetime.datetime.fromtimestamp(item['dt'], JST)
         weatherDescription = item['weather'][0]['description']
         temperature = item['main']['temp']
@@ -74,10 +74,11 @@ def rainweather(message):
         if 'rain' in item and '3h' in item['rain']:
             rainfall = item['rain']['3h']
             isRain = True
-            if rainfall != 0 and forecastDatetime.day == today.day:
+            if rainfall != 0 and forecastDatetime.day == today:
+                print("RAINY DAY")
                 message.send('{0}時頃に{1}で、{2}mmぐらい降るみたい。 '.format(
                     forecastDatetime.hour, weatherDescription, rainfall))
-                message.send("気温は{}℃!".format(temperature))
+                message.send("気温は{}℃".format(temperature))
     if isRain:
         message.send(":tired_face:")
         message.send("寒いね。暖かくして出かけよう！")
