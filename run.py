@@ -7,8 +7,8 @@ import random
 import re
 import json
 import requests
+from datetime import datetime, timezone, timedelta
 from pytz import timezone
-import datetime
 
 DEFAULT_REPLY = "Hello, I'm Tech team bot!!"
 SWEET_SENTENCES = ["花火が見えない？お前がいるから大丈夫。", "恋はワインと同じ、時が経てばコクが出てくる",
@@ -65,15 +65,15 @@ def rainweather(message):
     weather = getWeatherF()
     message.send("今日は…")
     for item in weather['list']:
-        forecastDatetime = timezone(
-            'Asia/Tokyo').localize(datetime.datetime.fromtimestamp(item['dt']))
+        JST = timezone(timedelta(hours=+9), 'JST')
+        forecastDatetime = = datetime.fromtimestamp(datetime.datetime.fromtimestamp(item['dt']), JST)
         weatherDescription = item['weather'][0]['description']
         temperature = item['main']['temp']
         rainfall = 0
         if 'rain' in item and '3h' in item['rain']:
             rainfall = item['rain']['3h']
             isRain = True
-            if rainfall != 0:
+            if rainfall != 0 and datetime.day == 13:
                 message.send('日時:{0} 天気:{1} 気温(℃):{2} 雨量(mm):{3}'.format(
                     forecastDatetime, weatherDescription, temperature, rainfall))
     if isRain:
